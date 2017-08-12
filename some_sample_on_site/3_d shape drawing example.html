@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<!-- This is based on DillingerLee's great template here:
+https://github.com/Team-Code/KA_Offline -->
+<html> 
+ <head>
+    <title>P3D</title>
+    <meta charset="utf-8">
+    <meta content="How to use P3D">
+</head>
+ <body style="background:black;">
+    <p align="center"> 
+	<!--This draws the Canvas on the webpage -->
+      <canvas id="mycanvas" style="border:20px groove lightgreen;"></canvas> 
+    </p>
+ </body>
+ 
+ <!-- Run all the JavaScript stuff -->
+ <!-- Include the processing.js library -->
+ <!-- See https://khanacademy.zendesk.com/hc/en-us/articles/202260404-What-parts-of-ProcessingJS-does-Khan-Academy-support- for differences -->
+ <script src="https://cdn.jsdelivr.net/processing.js/1.4.8/processing.min.js"></script> 
+ 
+ <!--Use P3D to create 3D graphics courtesy of Processing JS-->
+ <script>
+    var xTheta=0;
+    var yTheta=0;
+    var zt=0;
+    var sketchProc = function(processingInstance) {
+     with (processingInstance) {
+        size(400, 400,P3D); 
+        frameRate(30);
+        var time=0;
+        draw=function(){
+            time++;
+            directionalLight(255, 255, 255, 0.33, 0.5, -0.33);
+            camera(mouseX, mouseY, (height/2) / tan(PI/6), mouseX, mouseY, 0, 0, 1, 0);
+            background(255);
+            translate(width/2,height/2,-200);
+            
+            fill(255,0,0,255);
+            rotateY(radians(xTheta));
+            rotateX(radians(yTheta));
+            box(100,100,20);
+            resetMatrix();
+            textMode(SHAPE);
+            fill(0);
+            text("rotate",100,200,200,200);
+            xTheta+=noise(mouseX,frameCount);
+            yTheta+=noise(mouseY,frameCount);
+            translate(width/4,height/4,-2000);
+            camera(mouseX, mouseY, (height/2) / tan(PI/(mouseX/10)), mouseX, mouseY, 0, 0, 1, 0);
+            fill(0,0,200);
+            rotateY(radians(time%360));
+            sphere(30);
+            resetMatrix();
+        };
+        
+    }};
+
+    // Get the canvas that Processing-js will use
+    var canvas = document.getElementById("mycanvas"); 
+    // Pass the function sketchProc (defined in myCode.js) to Processing's constructor.
+    var processingInstance = new Processing(canvas, sketchProc); 
+ </script>
+
+</html>
