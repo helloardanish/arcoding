@@ -1,0 +1,67 @@
+var MyPage = React.createClass({
+  getInitialState: function() {
+    return {progress: 0};
+  },
+
+  renderToolbar() {
+    return (
+      <Ons.Toolbar>
+        <div className='center'>Progress</div>
+      </Ons.Toolbar>
+    );
+  },
+
+  componentDidMount: function() {
+    this.interval = setInterval(() => {
+      let progress = this.state.progress;
+
+      if (progress === 100) {
+        clearInterval(this.interval);
+        return;
+      }
+
+      progress++;
+      this.setState({progress: progress});
+
+    }, 40);
+  },
+
+  componentWillUnmount: function() {
+    if (this.interval) {
+      clearInterval(this.interval);
+    }
+  },
+
+  render: function() {
+    return (
+      <Ons.Page renderToolbar={this.renderToolbar}>
+        <Ons.ProgressBar value={this.state.progress} />
+
+        <section style={{margin: '16px'}}>
+          <p>
+            Progress: {this.state.progress}%
+          </p>
+
+          <p>
+            <Ons.ProgressBar value={20} />
+          </p>
+
+          <p>
+            <Ons.ProgressBar value={40} secondaryValue={80} />
+          </p>
+
+          <p>
+            <Ons.ProgressBar indeterminate />
+          </p>
+
+          <p>
+            <Ons.ProgressCircular value={20} />
+            <Ons.ProgressCircular value={40} secondaryValue={80} />
+            <Ons.ProgressCircular indeterminate />
+          </p>
+
+        </section>
+      </Ons.Page>
+    );
+  }
+});
