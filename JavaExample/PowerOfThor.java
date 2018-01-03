@@ -17,8 +17,8 @@ class Player {
         int initialTX = in.nextInt(); // Thor's starting X position
         int initialTY = in.nextInt(); // Thor's starting Y position
 
-        int thorX = initialTX;
-        int thorY = initialTY;
+        int thorXPos = initialTX;
+        int thorYPos = initialTY;
 
         // game loop
         while (true) {
@@ -29,20 +29,20 @@ class Player {
 
             String directionX="";
             String directionY="";
-            if (thorX > lightX) {
+            if (thorXPos > lightX) {
                 directionX="W";
-                thorX = thorX - 1;
-            } else if (thorX < lightX) {
+                thorXPos = thorXPos - 1;
+            } else if (thorXPos < lightX) {
                 directionX = "E";
-                thorX = thorX + 1;
+                thorXPos = thorXPos + 1;
             }
             
-            if (thorY > lightY) {
+            if (thorYPos > lightY) {
                 directionY = "N";
-                thorY = thorY - 1;
-            } else if (thorY < lightY) {
+                thorYPos = thorYPos - 1;
+            } else if (thorYPos < lightY) {
                 directionY = "S";
-                thorY = thorY + 1;
+                thorYPos = thorYPos + 1;
             }
             
             System.out.println(directionY + directionX); // A single line providing the move to be made: N NE E SE S SW W or NW
